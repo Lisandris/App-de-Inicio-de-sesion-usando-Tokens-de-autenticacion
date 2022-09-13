@@ -21,7 +21,7 @@ class AuthBackground extends StatelessWidget {
           // Icono de persona 
           _HeaderIcon(),
 
-          // this.child,
+          this.child,
         ],
       ),
     );
