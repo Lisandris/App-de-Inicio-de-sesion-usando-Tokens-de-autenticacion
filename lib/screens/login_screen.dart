@@ -49,6 +49,7 @@ class _LogibForm extends StatelessWidget {
     return Container(
       child: Form(
         // TODO: mantener la ref al KEY
+        autovalidateMode: AutovalidateMode.onUserInteraction,  /* para validar el email */
         child: Column(
           children:  [
 
@@ -60,6 +61,16 @@ class _LogibForm extends StatelessWidget {
                 labelText: 'Correo electronico',
                 prefixIcon: Icons.alternate_email_rounded,
               ),
+              // Validacion del correo
+              validator: ( value ) {
+
+                String pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+                RegExp regExp  = new RegExp(pattern);
+
+                return regExp.hasMatch(value ?? '')
+                  ? null
+                  : 'Correo invalido';
+              }, 
             ),
 
              const SizedBox( height: 30 ),
@@ -73,6 +84,14 @@ class _LogibForm extends StatelessWidget {
                 labelText: 'Contraseña',
                 prefixIcon: Icons.lock_outline_rounded,
               ),
+              // Validacion de contraseña
+              validator: ( value ) {
+                
+                return  ( value != null && value.length >= 6 ) 
+                ? null
+                : 'La contraseña debe tener minimo 6 caracteres';
+
+              }, 
             ),
 
              SizedBox( height: 30 ),
