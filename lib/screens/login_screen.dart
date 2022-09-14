@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:productos_apps/providers/login_form_provider.dart';
 import 'package:productos_apps/ui/input_decorations.dart';
 import 'package:productos_apps/widgets/widgets.dart';
+import 'package:provider/provider.dart';
 
 
 class LoginScreen extends StatelessWidget {
@@ -14,7 +16,7 @@ class LoginScreen extends StatelessWidget {
           child: Column(
             children: [
 
-              SizedBox( height: 250),
+              const SizedBox( height: 250),
 
               CardContainer(
                 child: Column(
@@ -24,12 +26,15 @@ class LoginScreen extends StatelessWidget {
                     Text('Login', style: Theme.of(context).textTheme.headline5),
                     SizedBox( height: 30 ),
 
-                    _LogibForm(),
+                    ChangeNotifierProvider(
+                      create: ( _ ) => LoginFormProvider(),
+                      child: _LoginForm()
+                    )
                   ],
                 ),
               ),
 
-              SizedBox( height: 50 ),
+              const SizedBox( height: 50 ),
               Text('Crear nueva cuenta', style:TextStyle( fontSize:20, fontWeight: FontWeight.bold ), ),
               SizedBox( height: 50 ),
             ],
@@ -40,16 +45,22 @@ class LoginScreen extends StatelessWidget {
   }
 }
 
-class _LogibForm extends StatelessWidget {
-  const _LogibForm
+class _LoginForm extends StatelessWidget {
+  const _LoginForm
   ({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
+      final loginForm = Provider.of<LoginFormProvider>(context);
+
     return Container(
       child: Form(
-        // TODO: mantener la ref al KEY
-        autovalidateMode: AutovalidateMode.onUserInteraction,  /* para validar el email */
+        key: loginForm.formKey,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        
+        
+          /* para validar el email */
         child: Column(
           children:  [
 
@@ -61,6 +72,7 @@ class _LogibForm extends StatelessWidget {
                 labelText: 'Correo electronico',
                 prefixIcon: Icons.alternate_email_rounded,
               ),
+              onChanged: (value ) => loginForm.email = value,
               // Validacion del correo
               validator: ( value ) {
 
@@ -84,6 +96,7 @@ class _LogibForm extends StatelessWidget {
                 labelText: 'Contraseña',
                 prefixIcon: Icons.lock_outline_rounded,
               ),
+              onChanged: (value ) => loginForm.password = value,
               // Validacion de contraseña
               validator: ( value ) {
                 
@@ -94,7 +107,7 @@ class _LogibForm extends StatelessWidget {
               }, 
             ),
 
-             SizedBox( height: 30 ),
+             const SizedBox( height: 30 ),
 
             MaterialButton(
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -109,8 +122,12 @@ class _LogibForm extends StatelessWidget {
               ),
               onPressed: (){
                 // TODO: Login form 
+                if ( !loginForm.isValidForm() ) return;
+
+                // Para pasar a la siguiente pantalla al press el boton
+                Navigator.pushReplacementNamed(context, 'home');
               }
-              )
+            )
             
           ],
         ),
