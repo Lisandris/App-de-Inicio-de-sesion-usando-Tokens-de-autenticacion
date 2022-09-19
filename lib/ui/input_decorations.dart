@@ -7,15 +7,14 @@ class InputDecorations{
     required String hintText,
     required String labelText,
     IconData? prefixIcon
-
   }){
     return InputDecoration(
-                enabledBorder: const UnderlineInputBorder(
+                enabledBorder:  UnderlineInputBorder(
                  borderSide: BorderSide(
                   color: Color.fromARGB(255, 201, 90, 182),
                    ),
                 ),
-                focusedBorder: const UnderlineInputBorder(
+                focusedBorder:  UnderlineInputBorder(
                   borderSide: BorderSide(
                     color: Color.fromARGB(255, 155, 63, 127),
                     width: 2,
