@@ -83,7 +83,7 @@ class _ProductForm extends StatelessWidget {
                 ),
               ),
 
-              SizedBox( height: 30 ),
+              const SizedBox( height: 30 ),
 
               TextField(
                 keyboardType: TextInputType.number,
