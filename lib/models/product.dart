@@ -9,14 +9,15 @@ class Product {
     Product({
         required this.available,
         required this.name,
-        required this.picture,
+        this.picture,
         required this.price,
     });
 
     bool available;
     String name;
-    String picture;
-    int price;
+    String? picture;
+    double price;
+    String? id;
 
     factory Product.fromJson(String str) => Product.fromMap(json.decode(str));
 
