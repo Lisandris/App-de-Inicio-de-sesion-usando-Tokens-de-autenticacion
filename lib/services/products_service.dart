@@ -15,7 +15,10 @@ ProductsService() {
 
 }
 
-Future loadProducts() async {
+Future<List<Product>> loadProducts() async {
+
+  this.isLoading = true;
+  notifyListeners(); /* para notificar a cualquier widget que se esta cargando */
 
   final url = Uri.https( _baseUrl, 'products.json');
 /* dispara la peticion y regresa como un body */
@@ -27,10 +30,13 @@ Future loadProducts() async {
     final tempProduct = Product.fromMap( value );
     tempProduct.id = key;
     this.products.add( tempProduct );
-    
   });
 
-  print( this.products[0].name );
+  this.isLoading = false;
+  notifyListeners();  
+  // para llamar a loadproducts
+
+  return this.products;
 
 }
 
