@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:productos_apps/services/products_service.dart';
 import 'package:productos_apps/ui/input_decorations.dart';
 import 'package:productos_apps/widgets/widgets.dart';
+import 'package:provider/provider.dart';
 
 
 class ProductScreen extends StatelessWidget {
@@ -9,6 +11,9 @@ class ProductScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final productsService = Provider.of<ProductsService>(context);
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -16,7 +21,7 @@ class ProductScreen extends StatelessWidget {
             
             Stack(  /* Todo esto esta en la seccion de la tarjeta */
               children: [
-                ProductImage(),
+                ProductImage( url: productsService.selectedProduct.picture),
                 Positioned(
                   top: 60,
                   left: 20,
