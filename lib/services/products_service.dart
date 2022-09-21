@@ -14,7 +14,7 @@ ProductsService() {
   this.loadProducts();
 
 }
-
+// Para agregar nuevos productos loadProducts
 Future<List<Product>> loadProducts() async {
 
   this.isLoading = true;
