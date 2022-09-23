@@ -9,6 +9,12 @@ Product product;
 
 ProductFormProvider( this.product );
 
+updataAvailability ( bool value ){
+  print(value);
+  this.product.available = value;
+  notifyListeners();
+}
+
 
 bool isValidForm() {
 
