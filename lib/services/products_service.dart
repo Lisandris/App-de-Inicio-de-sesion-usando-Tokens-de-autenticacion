@@ -11,6 +11,7 @@ final List<Product> products = [];
  late Product selectedProduct;
 
 bool isLoading = true;
+bool isSaving = false;
 
 ProductsService() {
   this.loadProducts();
@@ -41,5 +42,37 @@ Future<List<Product>> loadProducts() async {
   return this.products;
 
 }
+  Future saveOrCreateProduct( Product product ) async {
+
+    isSaving = true;
+    notifyListeners();
+
+    if ( product.id == null ) {
+      // es necesario crear
+    } else {
+
+      await this.updateProduct(product);
+
+    }
+
+
+    isSaving = false;
+    notifyListeners();
+
+  }
+
+  Future<String> updateProduct ( Product product ) async {
+
+    final url = Uri.https( _baseUrl, 'products/${ product.id }.json');
+    final resp = await http.put( url, body: product.toJson() );
+    final decodeData = resp.body;
+
+    print( decodeData );
+
+    // TODO: Actualizar listado de producto
+
+    return product.id!;
+
+  }
 
 }

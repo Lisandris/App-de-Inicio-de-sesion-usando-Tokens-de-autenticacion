@@ -18,6 +18,10 @@ updataAvailability ( bool value ){
 
 bool isValidForm() {
 
+  print( product.name);
+  print( product.price);
+  print( product.available);
+
    return formkey.currentState?.validate() ?? false;
 }
 
