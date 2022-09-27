@@ -9,20 +9,20 @@ Product product;
 
 ProductFormProvider( this.product );
 
-updataAvailability ( bool value ){
-  print(value);
-  this.product.available = value;
-  notifyListeners();
-}
+  updataAvailability ( bool value ) {
+    print(value);
+    this.product.available = value;
+    notifyListeners();
+  }
 
 
-bool isValidForm() {
+  bool isValidForm() {
 
-  print( product.name);
-  print( product.price);
-  print( product.available);
+    print( product.name );
+    print( product.price );
+    print( product.available );
 
    return formkey.currentState?.validate() ?? false;
-}
+  }
 
 }

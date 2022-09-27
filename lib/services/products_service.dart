@@ -50,7 +50,7 @@ Future<List<Product>> loadProducts() async {
     if ( product.id == null ) {
       // es necesario crear
     } else {
-
+      // Actualizar
       await this.updateProduct(product);
 
     }
@@ -65,11 +65,11 @@ Future<List<Product>> loadProducts() async {
 
     final url = Uri.https( _baseUrl, 'products/${ product.id }.json');
     final resp = await http.put( url, body: product.toJson() );
-    final decodeData = resp.body;
-
-    print( decodeData );
+    final decodedData = resp.body;
 
     // TODO: Actualizar listado de producto
+    final index = this.products.indexWhere((element) => element.id == product.id );
+    this.products[index] = product;
 
     return product.id!;
 

@@ -140,7 +140,6 @@ class _ProductForm extends StatelessWidget {
                   } else {
                     product.price = double.parse(value);
                   }
-
                 },
                 keyboardType: TextInputType.number,
                 decoration: InputDecorations.authInputDecoration(
@@ -149,9 +148,7 @@ class _ProductForm extends StatelessWidget {
                 ), 
               ),
 
-
               SizedBox( height: 30 ),
-
               SwitchListTile.adaptive(
                 value: product.available, 
                 title: Text('Disponible'),
