@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import 'package:provider/provider.dart';
 import 'package:productos_apps/providers/product_form_provider.dart';
-import 'package:productos_apps/services/products_service.dart';
+
+import 'package:productos_apps/services/services.dart';
+
 import 'package:productos_apps/ui/input_decorations.dart';
 import 'package:productos_apps/widgets/widgets.dart';
-import 'package:provider/provider.dart';
 
 
 class ProductScreen extends StatelessWidget {
-  const ProductScreen({Key? key}) : super(key: key);
-
 
   @override
   Widget build(BuildContext context) {
 
-    final productsService = Provider.of<ProductsService>(context);
+    final productService = Provider.of<ProductsService>(context);
 
     return ChangeNotifierProvider(
-      create: ( _ ) => ProductFormProvider(productsService.selectedProduct ),
-      child: _ProductScreenBody(productsService: productsService),
+      create: ( _ ) => ProductFormProvider(  productService.selectedProduct ),
+      child: _ProductScreenBody(productService: productService),
     );
   }
 }
@@ -26,10 +27,10 @@ class ProductScreen extends StatelessWidget {
 class _ProductScreenBody extends StatelessWidget {
   const _ProductScreenBody({
     Key? key,
-    required this.productsService,
+    required this.productService,
   }) : super(key: key);
 
-  final ProductsService productsService;
+  final ProductsService productService;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +45,7 @@ class _ProductScreenBody extends StatelessWidget {
             
             Stack(  /* Todo esto esta en la seccion de la tarjeta */
               children: [
-                ProductImage( url: productsService.selectedProduct.picture),
+                ProductImage( url: productService.selectedProduct.picture),
                 Positioned(
                   top: 60,
                   left: 20,
@@ -58,7 +59,7 @@ class _ProductScreenBody extends StatelessWidget {
                   top: 60,
                   right: 20,
                   child: IconButton(
-                    onPressed: () {
+                    onPressed: ()  async {
                       // TODO: camara o galeria
                     },
                     icon: const Icon( Icons.camera_alt_outlined, size: 40, color: Colors.white ),
@@ -80,9 +81,9 @@ class _ProductScreenBody extends StatelessWidget {
         child: Icon ( Icons.save_outlined ),
         onPressed: () async {
           // TODO: guardar roducto
-         if ( productForm.isValidForm() ) return;
+         if ( !productForm.isValidForm() ) return;
 
-          await productsService.saveOrCreateProduct(productForm.product);
+         await productService.saveOrCreateProduct(productForm.product);
 
         },
       ),

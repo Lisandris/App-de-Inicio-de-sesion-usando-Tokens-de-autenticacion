@@ -8,7 +8,9 @@ class ProductsService extends ChangeNotifier{
 
 final String _baseUrl = 'flutter-varios-91ade-default-rtdb.firebaseio.com';
 final List<Product> products = [];
- late Product selectedProduct;
+late Product selectedProduct;
+
+// File? newPictureFile;
 
 bool isLoading = true;
 bool isSaving = false;
@@ -49,6 +51,7 @@ Future<List<Product>> loadProducts() async {
 
     if ( product.id == null ) {
       // es necesario crear
+      await this.createProduct( product);
     } else {
       // Actualizar
       await this.updateProduct(product);
@@ -64,14 +67,26 @@ Future<List<Product>> loadProducts() async {
   Future<String> updateProduct ( Product product ) async {
 
     final url = Uri.https( _baseUrl, 'products/${ product.id }.json');
-    final resp = await http.put( url, body: product.toJson() );
+    final resp = await http.post( url, body: product.toJson() );
     final decodedData = resp.body;
-
-    // TODO: Actualizar listado de producto
-    final index = this.products.indexWhere((element) => element.id == product.id );
-    this.products[index] = product;
+    
 
     return product.id!;
+
+  }
+
+  Future<String> createProduct ( Product product ) async {
+
+    final url = Uri.https( _baseUrl, 'products.json');
+    final resp = await http.put( url, body: product.toJson() );
+    final decodedData = json.decode(resp.body);
+
+    product.id = decodedData['name'];
+
+    this.products.add(product);
+
+    return product.id!;
+    
 
   }
 
