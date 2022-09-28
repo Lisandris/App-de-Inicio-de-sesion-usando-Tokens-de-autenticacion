@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:productos_apps/models/product.dart';
 import 'package:http/http.dart' as http;
@@ -10,7 +11,7 @@ final String _baseUrl = 'flutter-varios-91ade-default-rtdb.firebaseio.com';
 final List<Product> products = [];
 late Product selectedProduct;
 
-// File? newPictureFile;
+File? newPictureFile; /* para almacenar la imagen */
 
 bool isLoading = true;
 bool isSaving = false;
@@ -88,6 +89,14 @@ Future<List<Product>> loadProducts() async {
     return product.id!;
     
 
+  }
+
+  void updateSelectedProductImage( String path ){
+
+    this.selectedProduct.picture = path;
+    this.newPictureFile = File.fromUri( Uri (path: path) );
+
+    notifyListeners();
   }
 
 }
