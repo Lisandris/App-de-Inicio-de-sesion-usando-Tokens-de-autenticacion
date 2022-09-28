@@ -21,9 +21,6 @@ class Product {
     double price;
     String? id;
 
-    // final int h = 9;
-    // final j = h. ;
-
     factory Product.fromJson(String str) => Product.fromMap(json.decode(str));
 
     String toJson() => json.encode(toMap());

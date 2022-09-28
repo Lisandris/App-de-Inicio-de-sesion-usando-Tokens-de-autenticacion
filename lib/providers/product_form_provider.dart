@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:productos_apps/models/product.dart';
+import 'package:productos_apps/models/models.dart';
 
 class ProductFormProvider extends ChangeNotifier{
 

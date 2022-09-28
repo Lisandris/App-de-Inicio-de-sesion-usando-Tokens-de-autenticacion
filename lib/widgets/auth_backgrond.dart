@@ -17,6 +17,7 @@ class AuthBackground extends StatelessWidget {
       height: double.infinity,
       child: Stack( 
         children:  [
+          
           _PinkBox(),
           // Icono de persona 
           _HeaderIcon(),

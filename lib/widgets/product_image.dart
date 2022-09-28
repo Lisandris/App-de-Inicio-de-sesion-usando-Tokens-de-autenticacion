@@ -15,12 +15,12 @@ class ProductImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only( left: 10, right: 10, top: 10 ),
+      padding: const EdgeInsets.only( left: 10, right: 10, top: 10 ),
       child: Container(
         decoration: _buildBoxDecoration(),
         width: double.infinity,
         height: 450,
-        child:   Opacity(
+        child: Opacity(
           opacity: 0.7,
           child: ClipRRect(
             borderRadius: const BorderRadius.only(topLeft: Radius.circular(45), topRight: Radius.circular(45) ),
@@ -47,7 +47,7 @@ class ProductImage extends StatelessWidget {
   Widget getImage ( String? picture ) {
 
     if ( picture == null ) {
-      return const Image (
+      return Image (
         image: AssetImage('assets/no-image.png'),
         fit: BoxFit.cover,
       );

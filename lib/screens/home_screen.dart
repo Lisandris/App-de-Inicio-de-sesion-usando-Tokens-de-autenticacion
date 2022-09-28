@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:productos_apps/models/product.dart';
-import 'package:productos_apps/screens/screens.dart';
-import 'package:productos_apps/services/products_service.dart';
-import 'package:productos_apps/widgets/widgets.dart';
-
-import 'package:productos_apps/widgets/widgets.dart';
 import 'package:provider/provider.dart';
+
+import 'package:productos_apps/models/models.dart';
+import 'package:productos_apps/screens/screens.dart';
+
+import 'package:productos_apps/services/services.dart';
+import 'package:productos_apps/widgets/widgets.dart';
 
 
 class HomeScreen extends StatelessWidget {
@@ -38,7 +38,7 @@ class HomeScreen extends StatelessWidget {
         child: const Icon( Icons.add_box ),
         onPressed: () {
 
-          productsService.selectedProduct = Product(
+          productsService.selectedProduct = new Product(
             available: false,
              name: '',
               price: 0

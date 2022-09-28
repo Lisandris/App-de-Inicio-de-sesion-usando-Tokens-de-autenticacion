@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'package:provider/provider.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:productos_apps/providers/product_form_provider.dart';
 
 import 'package:productos_apps/services/services.dart';
@@ -65,17 +65,20 @@ class _ProductScreenBody extends StatelessWidget {
 
                       final picker = new ImagePicker();
                       final PickedFile? pickedFile = await picker.getImage(
+                        // source: ImageSource.gallery,
                         source: ImageSource.camera,
-                        imageQuality: 100
+                        imageQuality: 50
                       );
 
                       if ( pickedFile == null ){
                         print('No selecciono nada');
                         return;
                       }
-                      // print('lisa pickedFile 2: $pickedFile');
+
                       productService.updateSelectedProductImage(pickedFile.path);
+                    
                     },
+
                     icon: const Icon( Icons.camera_alt_outlined, size: 40, color: Colors.white ),
                   )
                 )
@@ -147,8 +150,7 @@ class _ProductForm extends StatelessWidget {
                 },
                 decoration : InputDecorations.authInputDecoration(
                   hintText : 'Nombre del producto',
-                  labelText: 'Nombre:', 
-                  
+                  labelText: 'Nombre:'
                 ),
               ),
 
@@ -180,6 +182,7 @@ class _ProductForm extends StatelessWidget {
                 activeColor: Colors.pink[400],
                 onChanged: productForm.updataAvailability
               ),
+
               SizedBox( height: 30 ),
 
             ],
@@ -191,7 +194,7 @@ class _ProductForm extends StatelessWidget {
 
   BoxDecoration _buildBoxDecoration() => BoxDecoration(
     color: Colors.white,
-    borderRadius: const BorderRadius.only( bottomLeft: Radius.circular(25), bottomRight: Radius.circular(25) ),
+    borderRadius: const BorderRadius.only( bottomRight: Radius.circular(25), bottomLeft: Radius.circular(25) ),
     boxShadow: [
       BoxShadow(
         color: Colors.black.withOpacity(0.05),

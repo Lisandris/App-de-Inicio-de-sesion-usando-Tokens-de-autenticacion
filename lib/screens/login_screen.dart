@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:productos_apps/providers/login_form_provider.dart';
+import 'package:provider/provider.dart';
+
 import 'package:productos_apps/ui/input_decorations.dart';
 import 'package:productos_apps/widgets/widgets.dart';
-import 'package:provider/provider.dart';
 
 
 class LoginScreen extends StatelessWidget {
@@ -46,8 +47,6 @@ class LoginScreen extends StatelessWidget {
 }
 
 class _LoginForm extends StatelessWidget {
-  const _LoginForm
-  ({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +57,6 @@ class _LoginForm extends StatelessWidget {
       child: Form(
         key: loginForm.formKey,
         autovalidateMode: AutovalidateMode.onUserInteraction,
-        
         
           /* para validar el email */
         child: Column(
