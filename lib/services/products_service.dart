@@ -94,9 +94,42 @@ Future<List<Product>> loadProducts() async {
   void updateSelectedProductImage( String path ){
 
     this.selectedProduct.picture = path;
+    print('lisa: path $path');
     this.newPictureFile = File.fromUri( Uri (path: path) );
 
     notifyListeners();
+  }
+
+  Future<String?> uploadImage() async{
+    print('lisa new picture: $newPictureFile');
+    if ( this.newPictureFile == null ) return null;
+
+    this.isSaving = true;
+    notifyListeners();
+
+    final url = Uri.parse('https://api.cloudinary.com/v1_1/dpmzoaf4d/image/upload?upload_preset=f96bo2e1');
+
+    final imageUploadRequest = http.MultipartRequest('POST', url );
+
+    final file = await http.MultipartFile.fromPath('file', newPictureFile!.path );
+
+    imageUploadRequest.files.add(file);
+
+    final streamResponse = await imageUploadRequest.send();
+    final resp = await http.Response.fromStream(streamResponse);
+
+    if ( resp.statusCode != 200 && resp.statusCode != 201 ){
+      print('algo salio mal');
+      print (resp.body );
+      return null;
+    }
+
+    this.newPictureFile = null;
+
+    final decodedData = json.decode(resp.body );
+    return decodedData['secure_url'];
+
+
   }
 
 }

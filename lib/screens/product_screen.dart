@@ -64,17 +64,27 @@ class _ProductScreenBody extends StatelessWidget {
                       // camara o galeria
 
                       final picker = new ImagePicker();
-                      final PickedFile? pickedFile = await picker.getImage(
+                      // final PickedFile? pickedFile = await picker.getImage(
+                      //   source: ImageSource.camera,
+                      //   imageQuality: 100
+                      // );
+
+                      final XFile? pickedFile = await picker.pickImage(
                         source: ImageSource.camera,
                         imageQuality: 100
                       );
 
-                      if ( pickedFile == null){
+                      // print('lisa pickedFile 1: $pickedFile');
+                      // print('lisa pickedFile 1: $pickedFile');
+
+
+                      if ( pickedFile == null ){
                         print('No selecciono nada');
                         return;
                       }
 
-                      print( 'Tenemos imagen ${ pickedFile.path }' );
+                      // print('lisa pickedFile 2: $pickedFile');
+
                       productService.updateSelectedProductImage(pickedFile.path);
 
 
@@ -98,7 +108,12 @@ class _ProductScreenBody extends StatelessWidget {
         child: Icon ( Icons.save_outlined ),
         onPressed: () async {
           // TODO: guardar roducto
+          print('lisa: clik guardar estado ${productForm.isValidForm()}');
          if ( !productForm.isValidForm() ) return;
+
+         final String? imageUrl = await productService.uploadImage();
+
+         print ( imageUrl );
 
          await productService.saveOrCreateProduct(productForm.product);
 
