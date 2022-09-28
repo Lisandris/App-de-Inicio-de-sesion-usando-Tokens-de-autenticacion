@@ -1,13 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:productos_apps/models/product.dart';
+import 'package:productos_apps/models/models.dart';
 import 'package:http/http.dart' as http;
 
 
 class ProductsService extends ChangeNotifier{
 
-final String _baseUrl = 'flutter-varios-91ade-default-rtdb.firebaseio.com';
+final String _baseUrl = 'flutter-new-648ac-default-rtdb.firebaseio.com';
 final List<Product> products = [];
 late Product selectedProduct;
 
@@ -70,6 +70,10 @@ Future<List<Product>> loadProducts() async {
     final url = Uri.https( _baseUrl, 'products/${ product.id }.json');
     final resp = await http.post( url, body: product.toJson() );
     final decodedData = resp.body;
+
+    // // //TODO: Actualizar el listado de productos
+    // final index = this.products.indexWhere((element) => element.id == product.id );
+    // this.products[index] = product;
     
 
     return product.id!;
@@ -101,7 +105,8 @@ Future<List<Product>> loadProducts() async {
   }
 
   Future<String?> uploadImage() async{
-    print('lisa new picture: $newPictureFile');
+
+
     if ( this.newPictureFile == null ) return null;
 
     this.isSaving = true;
