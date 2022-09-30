@@ -41,7 +41,7 @@ class ResgiterScreen extends StatelessWidget {
                   overlayColor: MaterialStateProperty.all(Colors.pink.withOpacity(0.1)),
                   shape: MaterialStateProperty.all( StadiumBorder())
                 ),
-                child: Text('¿Ya tienes una cuenta?', style:TextStyle( fontSize:20, color: Colors.black87 ),),
+                child: const Text('¿Ya tienes una cuenta?', style:TextStyle( fontSize:20, color: Colors.black87 ),),
               ),
               SizedBox( height: 50 ),
             ],
