@@ -139,11 +139,11 @@ class _LoginForm extends StatelessWidget {
                 if ( errorMessage == null ){
                 // Para pasar a la siguiente pantalla al press el boton
                   Navigator.pushReplacementNamed(context, 'home');
-                }else{
+                }else {
                   // TODO: mostrar error en pantalla
                   print(errorMessage );
+                  loginForm.isLoading = false;
                 }
-                loginForm.isLoading = false;
               }
             )
             

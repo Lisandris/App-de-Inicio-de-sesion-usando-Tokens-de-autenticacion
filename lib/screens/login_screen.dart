@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:productos_apps/ui/input_decorations.dart';
 import 'package:productos_apps/widgets/widgets.dart';
 
+import '../services/auth_service.dart';
+
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -125,12 +127,25 @@ class _LoginForm extends StatelessWidget {
                  style: TextStyle ( color: Colors.white ),
                  ),
               ),
-              onPressed: (){
+              onPressed: loginForm.isLoading ? null : () async{
+
+                FocusScope.of(context).unfocus();
+                final authService = Provider.of<AuthService>(context, listen: false);
                 // TODO: Login form 
                 if ( !loginForm.isValidForm() ) return;
 
+                loginForm.isLoading = true;
+
+                final String? errorMessage = await authService.login(loginForm.email, loginForm.password);
+
+                if ( errorMessage == null ){
                 // Para pasar a la siguiente pantalla al press el boton
-                Navigator.pushReplacementNamed(context, 'home');
+                  Navigator.pushReplacementNamed(context, 'home');
+                }else{
+                  // TODO: mostrar error en pantalla
+                  print(errorMessage );
+                  loginForm.isLoading = false;
+                }
               }
             )
             
