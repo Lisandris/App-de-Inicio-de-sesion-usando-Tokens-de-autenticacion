@@ -6,8 +6,7 @@ import 'package:productos_apps/ui/input_decorations.dart';
 import 'package:productos_apps/widgets/widgets.dart';
 
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class ResgiterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +23,7 @@ class LoginScreen extends StatelessWidget {
                   children: [
 
                     SizedBox( height: 10 ),
-                    Text('Login', style: Theme.of(context).textTheme.headline5),
+                    Text('Crear cuenta', style: Theme.of(context).textTheme.headline5),
                     SizedBox( height: 30 ),
 
                     ChangeNotifierProvider(
@@ -35,14 +34,14 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
 
-              const SizedBox( height: 50 ),
+              SizedBox( height: 50 ),
               TextButton(
-                onPressed: () => Navigator.pushReplacementNamed(context, 'register') ,
+                onPressed: () => Navigator.pushReplacementNamed(context, 'login') ,
                 style: ButtonStyle(
                   overlayColor: MaterialStateProperty.all(Colors.pink.withOpacity(0.1)),
                   shape: MaterialStateProperty.all( StadiumBorder())
                 ),
-                child: Text('Crear nueva cuenta', style:TextStyle( fontSize:20, color: Colors.black87 ),),
+                child: Text('¿Ya tienes una cuenta?', style:TextStyle( fontSize:20, color: Colors.black87 ),),
               ),
               SizedBox( height: 50 ),
             ],
