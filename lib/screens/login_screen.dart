@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:productos_apps/ui/input_decorations.dart';
 import 'package:productos_apps/widgets/widgets.dart';
 
-import '../services/auth_service.dart';
+import '../services/services.dart';
 
 
 class LoginScreen extends StatelessWidget {
@@ -120,13 +120,7 @@ class _LoginForm extends StatelessWidget {
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
               disabledColor: Colors.grey,
               elevation: 0,
-              color: Color.fromARGB(255, 201, 90, 182),
-              child: Container(
-                padding: EdgeInsets.symmetric( horizontal: 70, vertical: 15),
-                child: Text('Ingresar',
-                 style: TextStyle ( color: Colors.white ),
-                 ),
-              ),
+              color: const Color.fromARGB(255, 201, 90, 182),
               onPressed: loginForm.isLoading ? null : () async{
 
                 FocusScope.of(context).unfocus();
@@ -143,10 +137,17 @@ class _LoginForm extends StatelessWidget {
                   Navigator.pushReplacementNamed(context, 'home');
                 }else{
                   // TODO: mostrar error en pantalla
-                  print(errorMessage );
+                  
+                  NotificationsService.showSnackbar(errorMessage);
                   loginForm.isLoading = false;
                 }
-              }
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric( horizontal: 70, vertical: 15),
+                child: Text('Ingresar',
+                 style: TextStyle ( color: Colors.white ),
+                 ),
+              )
             )
             
           ],
