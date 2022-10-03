@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
 import 'package:productos_apps/models/models.dart';
 import 'package:http/http.dart' as http;
 
@@ -11,6 +13,8 @@ class ProductsService extends ChangeNotifier{
 final String _baseUrl = 'flutter-new-648ac-default-rtdb.firebaseio.com';
 final List<Product> products = [];
 late Product selectedProduct;
+
+final storage = new FlutterSecureStorage();
 
 File? newPictureFile; /* para almacenar la imagen */
 
@@ -27,7 +31,10 @@ Future<List<Product>> loadProducts() async {
   this.isLoading = true;
   notifyListeners(); /* para notificar a cualquier widget que se esta cargando */
 
-  final url = Uri.https( _baseUrl, 'product.json');
+  final url = Uri.https( _baseUrl, 'products.json', {
+    'auth': await storage.read(key: 'token') ?? ''
+  });
+
 /* dispara la peticion y regresa como un body */
   final resp = await http.get( url );
 
@@ -60,31 +67,36 @@ Future<List<Product>> loadProducts() async {
 
     }
 
-
     isSaving = false;
     notifyListeners();
 
   }
 
+
   Future<String> updateProduct ( Product product ) async {
 
-    final url = Uri.https( _baseUrl, 'products/${ product.id }.json');
-    final resp = await http.put( url, body: product.toJson() );
+    final url = Uri.https( _baseUrl, 'products/${ product.id }.json', {
+      'auth': await storage.read(key: 'token') ?? ''
+   });
+
+    final resp = await http.put( url, body: product.toJson(), );
     final decodedData = resp.body;
 
     // // //TODO: Actualizar el listado de productos
     final index = this.products.indexWhere((element) => element.id == product.id );
     this.products[index] = product;
     
-
     return product.id!;
 
   }
 
   Future<String> createProduct ( Product product ) async {
 
-    final url = Uri.https( _baseUrl, 'products.json');
-    final resp = await http.post( url, body: product.toJson() );
+    final url = Uri.https( _baseUrl, 'products.json', {
+    'auth': await storage.read(key: 'token') ?? ''
+    });
+    
+    final resp = await http.post( url, body: product.toJson(), );
     final decodedData = json.decode( resp.body );
 
     product.id = decodedData['name'];

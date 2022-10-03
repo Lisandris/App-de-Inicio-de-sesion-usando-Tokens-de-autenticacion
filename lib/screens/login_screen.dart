@@ -42,11 +42,11 @@ class LoginScreen extends StatelessWidget {
                 onPressed: () => Navigator.pushReplacementNamed(context, 'register') ,
                 style: ButtonStyle(
                   overlayColor: MaterialStateProperty.all(Colors.pink.withOpacity(0.1)),
-                  shape: MaterialStateProperty.all( StadiumBorder())
+                  shape: MaterialStateProperty.all( const StadiumBorder())
                 ),
-                child: Text('Crear nueva cuenta', style:TextStyle( fontSize:20, color: Colors.black87 ),),
+                child: const Text('Crear nueva cuenta', style:TextStyle( fontSize:20, color: Colors.black87 ),),
               ),
-              SizedBox( height: 50 ),
+              const SizedBox( height: 50 ),
             ],
           ),
         )
@@ -85,6 +85,8 @@ class _LoginForm extends StatelessWidget {
 
                 String pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
                 RegExp regExp  = new RegExp(pattern);
+
+                
 
                 return regExp.hasMatch(value ?? '')
                   ? null
